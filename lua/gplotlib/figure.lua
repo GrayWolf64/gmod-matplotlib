@@ -24,14 +24,14 @@ function axis.setup(fig, space_x, space_y, length_x, length_y)
     local num_spaces_x, num_spaces_y = math.floor(fig:GetWide() / space_x), math.floor(fig:GetTall() / space_y)
     surface.SetDrawColor(color_black)
 
-    function layer_axis.Paint()
+    function layer_axis.Paint(self, w, h)
         for i = 1, num_spaces_x do
             local start_end_x = i * space_x
-            surface.DrawLine(start_end_x, layer_axis:GetTall(), start_end_x, layer_axis:GetTall() - length_x)
+            surface.DrawLine(start_end_x, h, start_end_x, h - length_x)
         end
 
         for i = 1, num_spaces_y do
-            local start_end_y = layer_axis:GetTall() - i * space_y
+            local start_end_y = h - i * space_y
             surface.DrawLine(0, start_end_y, length_y, start_end_y)
         end
     end
