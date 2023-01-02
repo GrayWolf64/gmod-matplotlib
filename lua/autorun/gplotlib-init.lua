@@ -1,3 +1,3 @@
-if CLIENT then
-    include("lua/gplotlib/figure.lua")
-end
+if SERVER then return end
+gplotlib = {}
+include("gplotlib/figure.lua")
