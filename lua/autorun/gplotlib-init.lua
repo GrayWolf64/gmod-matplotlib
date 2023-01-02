@@ -1,3 +1,3 @@
 if CLIENT then
-    include("lua/gplotlib/axis.lua")
+    include("lua/gplotlib/figure.lua")
 end
