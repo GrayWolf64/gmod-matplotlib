@@ -17,7 +17,7 @@ end
 
 local axis = {}
 
-function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis)
+function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis, color_text)
     local layer_axis = vgui.Create("DPanel", fig)
     layer_axis:SetSize(fig:GetWide() - 100, fig:GetTall() - 100)
     layer_axis:Center()
@@ -38,17 +38,18 @@ function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis)
         end
     end
 
-    local fig_x, fig_y = layer_axis:GetPos()
+    local layer_axis_x, layer_axis_y = layer_axis:GetPos()
+    local layer_axis_tall = layer_axis:GetTall()
     local layer_label = vgui.Create("DPanel", fig)
     layer_label:Dock(FILL)
 
     function layer_label.Paint(self)
         for i = 0, num_spaces_x do
-            draw.DrawText(tostring(i * space_x), "DermaDefault", fig_x + i * space_x, layer_axis:GetY() + layer_axis:GetTall(), color_white)
+            draw.DrawText(tostring(i * space_x), "DermaDefault", layer_axis_x + i * space_x, layer_axis_y + layer_axis_tall, color_text)
         end
 
         for i = 1, num_spaces_y do
-            draw.DrawText(tostring(i * space_y), "DermaDefault", layer_axis:GetX(), layer_axis:GetTall() + layer_axis:GetY() - i * space_y, color_white, TEXT_ALIGN_RIGHT)
+            draw.DrawText(tostring(i * space_y), "DermaDefault", layer_axis_x, layer_axis_tall + layer_axis_y - i * space_y, color_text, TEXT_ALIGN_RIGHT)
         end
     end
 end
@@ -61,5 +62,5 @@ frame:SetVisible(true)
 frame:ShowCloseButton(true)
 frame:MakePopup()
 frame:Center()
-local fig = figure.setup(frame, 20, 20, 400, 400, Color(163, 163, 163, 56), Color(68, 68, 68))
-axis.setup(fig, 40, 40, 5, 5, color_black)
+local fig = figure.setup(frame, 20, 20, 400, 400, Color(241, 241, 241, 218), Color(68, 68, 68))
+axis.setup(fig, 40, 40, 5, 5, color_black, color_black)
