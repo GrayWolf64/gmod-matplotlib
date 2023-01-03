@@ -1,9 +1,9 @@
 local figure = {}
 
-function figure.setup(panel, w, h, color_bg, color_outline)
+function figure.setup(panel, x, y, w, h, color_bg, color_outline)
     local base_panel = vgui.Create("DPanel", panel)
     base_panel:SetSize(w, h)
-    base_panel:Center()
+    base_panel:SetPos(x, y)
 
     function base_panel.Paint()
         surface.SetDrawColor(color_bg)
@@ -19,11 +19,14 @@ local axis = {}
 
 function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis)
     local layer_axis = vgui.Create("DPanel", fig)
-    layer_axis:Dock(FILL)
-    local num_spaces_x, num_spaces_y = math.floor(fig:GetWide() / space_x), math.floor(fig:GetTall() / space_y)
-    surface.SetDrawColor(color_axis)
+    layer_axis:SetSize(fig:GetWide() - 100, fig:GetTall() - 100)
+    layer_axis:Center()
+    local num_spaces_x, num_spaces_y = math.floor(layer_axis:GetWide() / space_x), math.floor(layer_axis:GetTall() / space_y)
 
     function layer_axis.Paint(self, w, h)
+        surface.SetDrawColor(color_axis)
+        layer_axis:DrawOutlinedRect()
+
         for i = 1, num_spaces_x do
             local start_end_x = i * space_x
             surface.DrawLine(start_end_x, h, start_end_x, h - length_x)
@@ -35,13 +38,17 @@ function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis)
         end
     end
 
-    local fig_x, fig_y = fig:GetPos()
-    local layer_label = vgui.Create("DPanel", fig:GetParent())
+    local fig_x, fig_y = layer_axis:GetPos()
+    local layer_label = vgui.Create("DPanel", fig)
     layer_label:Dock(FILL)
 
-    function layer_label.Paint()
+    function layer_label.Paint(self)
         for i = 0, num_spaces_x do
-            draw.SimpleText(tostring(i * space_x), "DermaDefault", fig_x + i * space_x, fig:GetTall() + layer_label:GetY(), color_white)
+            draw.DrawText(tostring(i * space_x), "DermaDefault", fig_x + i * space_x, layer_axis:GetY() + layer_axis:GetTall(), color_white)
+        end
+
+        for i = 1, num_spaces_y do
+            draw.DrawText(tostring(i * space_y), "DermaDefault", layer_axis:GetX(), layer_axis:GetTall() + layer_axis:GetY() - i * space_y, color_white, TEXT_ALIGN_RIGHT)
         end
     end
 end
@@ -54,5 +61,5 @@ frame:SetVisible(true)
 frame:ShowCloseButton(true)
 frame:MakePopup()
 frame:Center()
-local fig = figure.setup(frame, 400, 400, Color(204, 204, 204), Color(68, 68, 68))
+local fig = figure.setup(frame, 20, 20, 400, 400, Color(163, 163, 163, 56), Color(68, 68, 68))
 axis.setup(fig, 40, 40, 5, 5, color_black)
