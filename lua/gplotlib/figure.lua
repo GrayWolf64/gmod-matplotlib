@@ -17,24 +17,35 @@ end
 
 local axis = {}
 
-function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis, color_text, font)
+function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis, color_text, font, draw_grid, color_grid)
     local layer_axis = vgui.Create("DPanel", fig)
     layer_axis:SetSize(fig:GetWide() - 100, fig:GetTall() - 100)
     layer_axis:Center()
     local num_spaces_x, num_spaces_y = math.floor(layer_axis:GetWide() / space_x), math.floor(layer_axis:GetTall() / space_y)
 
     function layer_axis.Paint(self, w, h)
-        surface.SetDrawColor(color_axis)
         layer_axis:DrawOutlinedRect()
 
         for i = 1, num_spaces_x do
             local start_end_x = i * space_x
+            surface.SetDrawColor(color_axis)
             surface.DrawLine(start_end_x, h, start_end_x, h - length_x)
+
+            if draw_grid and IsValid(color_grid) then
+                surface.SetDrawColor(color_grid)
+                surface.DrawLine(start_end_x, 0, start_end_x, h)
+            end
         end
 
         for i = 1, num_spaces_y do
             local start_end_y = h - i * space_y
+            surface.SetDrawColor(color_axis)
             surface.DrawLine(0, start_end_y, length_y, start_end_y)
+
+            if draw_grid and IsValid(color_grid) then
+                surface.SetDrawColor(color_grid)
+                surface.DrawLine(0, start_end_y, w, start_end_y)
+            end
         end
     end
 
@@ -69,5 +80,5 @@ concommand.Add("gplotlib_test", function()
     frame:MakePopup()
     frame:Center()
     local fig = figure.setup(frame, 20, 20, 400, 400, Color(241, 241, 241, 218), Color(68, 68, 68))
-    axis.setup(fig, 40, 40, 5, 5, color_black, color_black, "DermaDefault")
+    axis.setup(fig, 40, 40, 5, 5, color_black, color_black, "DermaDefault", true, Color(60, 60, 60, 62))
 end)
