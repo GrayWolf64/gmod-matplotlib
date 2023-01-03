@@ -55,12 +55,19 @@ function axis.setup(fig, space_x, space_y, length_x, length_y, color_axis, color
 end
 
 local frame = nil
-frame = vgui.Create("DFrame")
-frame:SetSize(500, 500)
-frame:SetTitle("figure")
-frame:SetVisible(true)
-frame:ShowCloseButton(true)
-frame:MakePopup()
-frame:Center()
-local fig = figure.setup(frame, 20, 20, 400, 400, Color(241, 241, 241, 218), Color(68, 68, 68))
-axis.setup(fig, 40, 40, 5, 5, color_black, color_black)
+
+concommand.Add("gplotlib_test", function()
+    if IsValid(frame) then
+        frame:Remove()
+    end
+
+    frame = vgui.Create("DFrame")
+    frame:SetSize(500, 500)
+    frame:SetTitle("figure")
+    frame:SetVisible(true)
+    frame:ShowCloseButton(true)
+    frame:MakePopup()
+    frame:Center()
+    local fig = figure.setup(frame, 20, 20, 400, 400, Color(241, 241, 241, 218), Color(68, 68, 68))
+    axis.setup(fig, 40, 40, 5, 5, color_black, color_black)
+end)
