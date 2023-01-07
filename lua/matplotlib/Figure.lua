@@ -1,18 +1,18 @@
 local Figure = {}
 
-function Figure.Setup(panel, x, y, w, h, color_bg, color_outline)
-    local base_panel = vgui.Create("DPanel", panel)
-    base_panel:SetSize(w, h)
-    base_panel:SetPos(x, y)
+function Figure.Setup(panel, x, y, w, h, colorBG, colorOutline)
+    local basePanel = vgui.Create("DPanel", panel)
+    basePanel:SetSize(w, h)
+    basePanel:SetPos(x, y)
 
-    function base_panel.Paint()
-        surface.SetDrawColor(color_bg)
-        base_panel:DrawFilledRect()
-        surface.SetDrawColor(color_outline)
-        base_panel:DrawOutlinedRect()
+    function basePanel.Paint()
+        surface.SetDrawColor(colorBG)
+        basePanel:DrawFilledRect()
+        surface.SetDrawColor(colorOutline)
+        basePanel:DrawOutlinedRect()
     end
 
-    return base_panel
+    return basePanel
 end
 
 local Frame = nil
@@ -29,5 +29,5 @@ concommand.Add("Matplotlib_TestWindow", function()
     Frame:ShowCloseButton(true)
     Frame:MakePopup()
     Frame:Center()
-    Figure.Setup(Frame, 40, 40, 400, 400, color_white, color_black)
+    Figure.Setup(Frame, 40, 40, 400, 400, Color(220, 220, 220), Color(57, 57, 57))
 end)
