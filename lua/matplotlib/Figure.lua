@@ -1,6 +1,6 @@
 local Figure = {}
 
-function Figure.setup(panel, x, y, w, h, color_bg, color_outline)
+function Figure.Setup(panel, x, y, w, h, color_bg, color_outline)
     local base_panel = vgui.Create("DPanel", panel)
     base_panel:SetSize(w, h)
     base_panel:SetPos(x, y)
