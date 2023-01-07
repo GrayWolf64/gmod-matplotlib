@@ -1,3 +1,3 @@
 if SERVER then return end
-gplotlib = {}
+matplotlib = {}
 include("matplotlib/Figure.lua")
