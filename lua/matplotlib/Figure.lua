@@ -15,18 +15,19 @@ function Figure.Setup(panel, x, y, w, h, color_bg, color_outline)
     return base_panel
 end
 
-local frame = nil
+local Frame = nil
 
 concommand.Add("Matplotlib_TestWindow", function()
-    if IsValid(frame) then
-        frame:Remove()
+    if IsValid(Frame) then
+        Frame:Remove()
     end
 
-    frame = vgui.Create("DFrame")
-    frame:SetSize(500, 500)
-    frame:SetTitle("figure")
-    frame:SetVisible(true)
-    frame:ShowCloseButton(true)
-    frame:MakePopup()
-    frame:Center()
+    Frame = vgui.Create("DFrame")
+    Frame:SetSize(500, 500)
+    Frame:SetTitle("Figure Test")
+    Frame:SetVisible(true)
+    Frame:ShowCloseButton(true)
+    Frame:MakePopup()
+    Frame:Center()
+    Figure.Setup(Frame, 40, 40, 400, 400, color_white, color_black)
 end)
