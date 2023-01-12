@@ -1,18 +1,18 @@
 local Figure = {}
 
 function Figure.Setup(panel, x, y, w, h, colorBG, colorOutline)
-    local basePanel = vgui.Create("DPanel", panel)
-    basePanel:SetSize(w, h)
-    basePanel:SetPos(x, y)
+    local BasePanel = vgui.Create("DPanel", panel)
+    BasePanel:SetSize(w, h)
+    BasePanel:SetPos(x, y)
 
-    function basePanel.Paint()
+    function BasePanel.Paint()
         surface.SetDrawColor(colorBG)
-        basePanel:DrawFilledRect()
+        BasePanel:DrawFilledRect()
         surface.SetDrawColor(colorOutline)
-        basePanel:DrawOutlinedRect()
+        BasePanel:DrawOutlinedRect()
     end
 
-    return basePanel
+    return BasePanel
 end
 
 local Frame = nil
