@@ -15,12 +15,6 @@ function Figure.Setup(panel, x, y, w, h, colorBG, colorOutline)
     return basePanel
 end
 
-function Figure.AddSubPlot(figure)
-    local subPlot = vgui.Create("DPanel", figure)
-
-    return subPlot
-end
-
 local Frame = nil
 
 concommand.Add("Matplotlib_TestWindow", function()
