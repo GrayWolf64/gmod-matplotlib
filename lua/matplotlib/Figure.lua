@@ -1,6 +1,6 @@
 local Figure = {}
 
-function Figure.Setup(panel, x, y, w, h, ColorBG, ColorOutline)
+function Figure.Setup(panel, x, y, w, h, ColorBG, ColorOutline, ColorAxes)
     local BasePanel = vgui.Create("DPanel", panel)
     BasePanel:SetSize(w, h)
     BasePanel:SetPos(x, y)
@@ -10,6 +10,9 @@ function Figure.Setup(panel, x, y, w, h, ColorBG, ColorOutline)
         BasePanel:DrawFilledRect()
         surface.SetDrawColor(ColorOutline)
         BasePanel:DrawOutlinedRect()
+        surface.SetDrawColor(ColorAxes)
+        surface.DrawLine(0, h / 2, w, h / 2)
+        surface.DrawLine(w / 2, 0, w / 2, h)
     end
 
     return BasePanel
@@ -29,5 +32,5 @@ concommand.Add("Matplotlib_TestWindow", function()
     Frame:ShowCloseButton(true)
     Frame:MakePopup()
     Frame:Center()
-    Figure.Setup(Frame, 40, 40, 400, 400, Color(220, 220, 220), Color(57, 57, 57))
+    Figure.Setup(Frame, 40, 40, 400, 400, Color(220, 220, 220), Color(57, 57, 57), Color(0, 0, 0))
 end)
