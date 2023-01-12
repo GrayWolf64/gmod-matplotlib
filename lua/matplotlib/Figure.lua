@@ -1,14 +1,14 @@
 local Figure = {}
 
-function Figure.Setup(panel, x, y, w, h, colorBG, colorOutline)
+function Figure.Setup(panel, x, y, w, h, ColorBG, ColorOutline)
     local BasePanel = vgui.Create("DPanel", panel)
     BasePanel:SetSize(w, h)
     BasePanel:SetPos(x, y)
 
     function BasePanel.Paint()
-        surface.SetDrawColor(colorBG)
+        surface.SetDrawColor(ColorBG)
         BasePanel:DrawFilledRect()
-        surface.SetDrawColor(colorOutline)
+        surface.SetDrawColor(ColorOutline)
         BasePanel:DrawOutlinedRect()
     end
 
